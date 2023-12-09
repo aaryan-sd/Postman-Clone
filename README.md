@@ -1,6 +1,6 @@
 # Postman Clone (API Testing Tool)
 
-site is live - https://aaryan-sd-postman-clone.netlify.app/
+Live Demo - https://aaryan-sd-postman-clone.netlify.app/
 
 A simple React-based Postman clone for testing APIs.
 
