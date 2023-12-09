@@ -1,0 +1,133 @@
+/* Request.css */
+.request-container {
+    background-color: #1e1e1e;
+    color: white;
+    padding: 50px;
+    margin: 0 auto;
+    max-width: 1000px;
+    border-radius: 20px;
+  }
+  
+  .logo {
+    max-width: 150px;
+    margin-bottom: 20px;
+  }
+  
+  .first-line {
+    display: flex;
+    gap: 10px;
+    margin-bottom: 20px;
+    padding-left: 10px;
+  }
+  
+  .method-dropdown,
+  .url-input,
+  .send-button {
+    padding: 10px;
+    font-size: 16px;
+    border-radius: 10px;
+  }
+
+  .url-input{
+    width: 500px;
+  }
+  
+  .label {
+    display: block;
+    margin-bottom: 10px;
+  }
+  
+  
+  
+  .input {
+    width: 900px;
+    padding: 10px;
+    font-size: 16px;
+    min-height: 40px;
+    border-radius: 8px;
+  }
+
+  .label-text {
+    font-size: 18px;
+    margin-right: 10px;
+    
+  }
+  
+  .send-button {
+    background-color: #007bff;
+    color: white;
+    cursor: pointer;
+    padding: 10px 20px;
+    font-size: 16px;
+  }
+  
+  .side-by-side-container {
+    display: flex;
+    gap: 70px;
+  }
+  
+  .side-by-side {
+    flex: 1;
+  }
+
+  .tab-buttons{
+    margin-bottom: 10px;
+    
+  }
+  
+
+  
+  /* Response Box */
+.response-box {
+    background-color: #1e1e1e;
+    color: white;
+    
+    margin: 210px;
+    max-width: 1500px;
+    min-height: 100px;
+    margin-top: 20px;
+    border: 1px solid #555;
+    padding: 10px;
+    border-radius: 20px;
+    padding-left: 50px;
+}
+
+.response-box h3{
+    color: #ff6201;
+}
+
+.response-details {
+    display: flex;
+    flex-wrap: nowrap;
+  }
+  
+  .response-details p {
+    margin-right: 30px; 
+    margin-top: 0px;
+    margin-bottom: 0px;
+  }
+
+  .response-body-table {
+    border: 1px solid #ff7301; /* Border color */
+    border-radius: 5px; /* Rounded corners */
+    padding: 10px; /* Padding inside the table */
+    margin-top: 20px; /* Margin from the top */
+    max-width: 960px;
+    margin-bottom: 20px;
+  }
+  
+  .response-body-table h4 {
+    margin: 0px;
+    border-bottom: 1px solid #ff7301; /* Border color for the heading */
+    padding-bottom: 10px; /* Padding at the bottom of the heading */
+    margin-bottom: 10px; /* Bottom margin for the heading */
+    padding-left: 20px;
+    padding-top: 0px;
+    
+  }
+  
+  .response-body-table pre {
+    margin: 0; /* Remove default margins for <pre> */
+  }
+  
+  

@@ -1,0 +1,159 @@
+// Request.js
+import React, { useState } from 'react';
+import axios from 'axios';
+import './Request.css'; // Import the corresponding CSS file
+
+const Request = () => {
+  const [url, setUrl] = useState('https://jsonplaceholder.typicode.com/todos/1');
+  const [method, setMethod] = useState('GET');
+  const [headers, setHeaders] = useState('{"Content-Type": "application/json"}');
+  const [body, setBody] = useState('');
+  const [responseData, setResponseData] = useState(null);
+  const [selectedTab, setSelectedTab] = useState('headers');
+
+  const [responseDetails, setResponseDetails] = useState({
+    status: null,
+    time: null,
+    size: null,
+  });
+
+  const handleSendRequest = () => {
+    const startTime = new Date();
+
+    axios({
+      method,
+      url,
+      //headers: headers && JSON.parse(headers),
+      data: body && JSON.parse(body),
+    })
+    .then((response) => {
+      const endTime = new Date();
+      const elapsedTime = endTime - startTime;
+
+      console.log('Full Response:', response);
+
+      // Extract status, time, and size information
+      const status = response.status;
+      const time = `${elapsedTime} ms`;
+      const size = `${JSON.stringify(response.data).length} bytes`;
+
+      // Set the response details in the state
+      setResponseDetails({
+        status,
+        time,
+        size,
+      });
+
+      // Set the response data in the state
+      setResponseData(response.data);
+    })
+      .catch((error) => {
+        console.error('Error fetching data:', error.message);
+        console.error('Full Error Object:', error);
+      });
+  };
+
+  return (
+    <>
+    <div className="request-container">
+      
+      {/* First Line: Method Dropdown, URL Input, Send Request button */}
+      <div className="first-line">
+        <select
+          value={method}
+          onChange={(e) => setMethod(e.target.value)}
+          className="method-dropdown"
+        >
+          <option value="GET">GET</option>
+          <option value="POST">POST</option>
+          <option value="PUT">PUT</option>
+          <option value="DELETE">DELETE</option>
+        </select>
+
+        <input
+          type="text"
+          value={url}
+          onChange={(e) => setUrl(e.target.value)}
+          className="url-input"
+        />
+
+        <button
+          className="send-button"
+          onClick={handleSendRequest}
+        >
+          Send
+        </button>
+      </div>
+
+      
+      {/* Tab Buttons */}
+      <div className="tab-buttons">
+        <span
+          style={{ paddingLeft:'10px' , cursor: 'pointer', textDecoration: selectedTab === 'headers' ? 'underline' : 'none', fontWeight: selectedTab === 'headers' ? 'bold' : 'normal', color: selectedTab === 'headers' ? '#ff6201' : 'white' }}
+          onClick={() => setSelectedTab('headers')}
+        >
+          Headers
+        </span>
+        <span
+          style={{ paddingLeft:'25px', cursor: 'pointer', textDecoration: selectedTab === 'body' ? 'underline' : 'none', fontWeight: selectedTab === 'body' ? 'bold' : 'normal', color: selectedTab === 'body' ? '#ff6201' : 'white' }}
+          onClick={() => setSelectedTab('body')}
+        >
+          Request Body
+        </span>
+      </div>
+
+      {/* Content Based on Selected Tab */}
+      {selectedTab === 'headers' && (
+        <div>
+          <label className="label">
+            <span className="label-text"></span>
+            <input
+              type="text"
+              value={headers}
+              onChange={(e) => setHeaders(e.target.value)}
+              className="input"
+            />
+          </label>
+        </div>
+      )}
+
+      {selectedTab === 'body' && (
+        <div>
+          <label className="label">
+            <span className="label-text"></span>
+            <textarea
+              value={body}
+              onChange={(e) => setBody(e.target.value)}
+              className="input"
+            />
+          </label>
+        </div>
+      )}
+
+        
+
+      
+    </div>
+
+      {/* Response Box */}
+      <div className="response-box">
+      <h3>Response:</h3>
+        {responseData && (
+          <div>
+            <div className="response-details">
+                <p>Status: {responseDetails.status}</p>
+                <p>Time: {responseDetails.time}</p>
+                <p>Size: {responseDetails.size}</p>
+            </div>
+            <div className='response-body-table'>
+              <h4>Response Body:</h4>
+              <pre>{JSON.stringify(responseData, null, 2)}</pre>
+            </div>
+          </div>
+        )}
+      </div>
+    </>
+  );
+};
+
+export default Request;
