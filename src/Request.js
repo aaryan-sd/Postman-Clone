@@ -17,39 +17,43 @@ const Request = () => {
     size: null,
   });
 
+  const [loading, setLoading] = useState(false);
+
   const handleSendRequest = () => {
+    setLoading(true); // Set loading to true when sending the request
+
     const startTime = new Date();
 
     axios({
       method,
       url,
-      //headers: headers && JSON.parse(headers),
+      // headers: headers && JSON.parse(headers),
       data: body && JSON.parse(body),
     })
-    .then((response) => {
-      const endTime = new Date();
-      const elapsedTime = endTime - startTime;
+      .then((response) => {
+        const endTime = new Date();
+        const elapsedTime = endTime - startTime;
 
-      console.log('Full Response:', response);
+        console.log('Full Response:', response);
 
-      // Extract status, time, and size information
-      const status = response.status;
-      const time = `${elapsedTime} ms`;
-      const size = `${JSON.stringify(response.data).length} bytes`;
+        const status = response.status;
+        const time = `${elapsedTime} ms`;
+        const size = `${JSON.stringify(response.data).length} bytes`;
 
-      // Set the response details in the state
-      setResponseDetails({
-        status,
-        time,
-        size,
-      });
+        setResponseDetails({
+          status,
+          time,
+          size,
+        });
 
-      // Set the response data in the state
-      setResponseData(response.data);
-    })
+        setResponseData(response.data);
+      })
       .catch((error) => {
         console.error('Error fetching data:', error.message);
         console.error('Full Error Object:', error);
+      })
+      .finally(() => {
+        setLoading(false); // Set loading to false after the request is complete
       });
   };
 
@@ -138,9 +142,12 @@ const Request = () => {
       {/* Response Box */}
       <div className="response-box">
       <h3>Response:</h3>
-        {responseData && (
-          <div>
-            <div className="response-details">
+      {loading ? (
+          <p>Loading...</p>
+        ) : (
+          responseData && (
+            <div>
+             <div className="response-details">
                 <p>Status: {responseDetails.status}</p>
                 <p>Time: {responseDetails.time}</p>
                 <p>Size: {responseDetails.size}</p>
@@ -149,7 +156,8 @@ const Request = () => {
               <h4>Response Body:</h4>
               <pre>{JSON.stringify(responseData, null, 2)}</pre>
             </div>
-          </div>
+            </div>
+          )
         )}
       </div>
     </>
