@@ -4,7 +4,7 @@ WORKDIR /app
 
 COPY package*.json ./
 
-RUN npm install --fronzen-lockfile
+RUN npm install --frozen-lockfile
 
 COPY . .
 
@@ -14,10 +14,8 @@ FROM nginx:latest
 
 RUN rm -rf /usr/share/nginx/html/*
 
-COPY --from=frontend /app/dist /usr/share/nginx/html/
+COPY --from=frontend /app/build /usr/share/nginx/html/
 
-# Copy custom Nginx configuration file (optional)
-COPY nginx.conf /etc/nginx/conf.d/default.conf
 
 EXPOSE 80
 
